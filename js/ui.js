@@ -81,8 +81,9 @@
   }
   function SCp() { return EN.BOOKS[S.book].SC[S.cur]; }
 
-  function render() {
+  function render(keep) {
     if (!S) return titleScreen();
+    var y0 = window.scrollY;
     save();
     var s = S, p = SCp(), html = hud(), bl = EN.blocks(s);
     html += '<div class="text">' + bl.map(function (b) { return '<p class="' + (b.k === "intro" ? "intro" : b.k === "d" ? "d" : "") + '">' + esc(b.k === "d" ? b.t.replace(/^- /, "") : b.t) + '</p>'; }).join("") + '</div>';
@@ -103,7 +104,7 @@
     h(html);
     bindMain();
     if (sheet) openSheet(sheet);
-    window.scrollTo(0, 0);
+    window.scrollTo(0, keep ? y0 : 0);
   }
   function bindMain() {
     on("[data-i]", function (el) { if (el.classList.contains("off")) return; EN.pick(S, +el.dataset.i); testUi = null; render(); });
@@ -137,11 +138,11 @@
   function bindTest() {
     if (!S.pending || S.pending.type !== "test") return;
     var t = testUi;
-    on("[data-pre]", function (el) { t.pre = Math.max(0, Math.min(S.sz, t.pre + (+el.dataset.pre))); render(); });
-    on("#roll", function () { t.res = EN.rollTest(S, S.pending.spec, t.pre); render(); });
-    on("#l1", function () { EN.luckAdd(S, t.res); render(); });
-    on("#l2", function () { EN.luckReroll(S, t.res); render(); });
-    on("#tdone", function () { var r = t.res; testUi = null; EN.resolveTest(S, r); render(); });
+    on("[data-pre]", function (el) { t.pre = Math.max(0, Math.min(S.sz, t.pre + (+el.dataset.pre))); render(true); });
+    on("#roll", function () { t.res = EN.rollTest(S, S.pending.spec, t.pre); render(true); });
+    on("#l1", function () { EN.luckAdd(S, t.res); render(true); });
+    on("#l2", function () { EN.luckReroll(S, t.res); render(true); });
+    on("#tdone", function () { var r = t.res; testUi = null; EN.resolveTest(S, r); render(true); });
   }
 
   /* ---------- walka ---------- */
@@ -167,8 +168,8 @@
   }
   function bindFight() {
     if (!S.pending || S.pending.type !== "fight") return;
-    on("[data-a]", function (el) { EN.fightRound(S, S.pending.f, el.dataset.a); render(); });
-    on("#fdone", function () { EN.resolveFight(S); render(); });
+    on("[data-a]", function (el) { EN.fightRound(S, S.pending.f, el.dataset.a); render(true); });
+    on("#fdone", function () { EN.resolveFight(S); render(true); });
   }
 
   /* ---------- sklep ---------- */
@@ -188,8 +189,8 @@
     return out + '</div>';
   }
   function bindShop() {
-    on("[data-buy]", function (el) { var a = el.dataset.buy.split("|"); var r = EN.buy(S, a[0], +a[1]); toast(r.ok ? "Kupione" : r.why); var y = window.scrollY; render(); window.scrollTo(0, y); });
-    on("[data-sell]", function (el) { EN.sell(S, el.dataset.sell); var y = window.scrollY; render(); window.scrollTo(0, y); });
+    on("[data-buy]", function (el) { var a = el.dataset.buy.split("|"); var r = EN.buy(S, a[0], +a[1]); toast(r.ok ? "Kupione" : r.why); render(true); });
+    on("[data-sell]", function (el) { EN.sell(S, el.dataset.sell); render(true); });
   }
 
   /* ---------- zakończenie ---------- */
