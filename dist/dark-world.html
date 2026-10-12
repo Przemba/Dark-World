@@ -176,6 +176,10 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
         { id: "draugr_rytual", t: "Pokonać go można tylko w pojedynku, jeden na jednego. Potem trzeba ściąć mu głowę, spalić ciało do zimnych popiołów i pogrzebać je daleko (albo wrzucić do wody). Do stosu potrzeba krzesiwa i oleju albo kilku pochodni, a bez tego zostaje chrust i długa, zimna noc. Pomoc innych wszystko psuje." },
         { id: "draugr_rodzaj", t: "Zwykle zostaje nim człowiek, który odszedł w złym stanie: samobójca, zmarły bez pochówku, nieprzebłagany za życia." }
       ],
+      prep: { kill: "draugr_rytual", gear: [
+        { t: "Krzesiwo", any: [{ krzesiwo: 1 }] },
+        { t: "Olej lub dwie pochodnie do stosu", any: [{ olej: 1 }, { pochodnia: 2 }] },
+        { t: "Łopata do pochówku", any: [{ lopata: 1 }] }] },
       foe: { n: "Draugr", zyw: 34, atk: 8, obr: 4, dice: [3, 6, 0], wyp: 2, ini: 6, nieumarly: true, zimny: true }
     },
     brukolak: {
@@ -818,11 +822,11 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       "- Znasz nasz świat? Świat, po którym dane ci będzie stąpać przez, daj twój bóg, kolejne kilka wiosen? - pyta starzec, widząc twoje zainteresowanie regałami. - Jeśli nie, pozwól, że powiem ci co nieco. Ludzie chodzą tu na ślepo i potem się dziwią."
     ],
     ch: [
-      { l: "Zapytać o świat i o to, co leży między krajami", to: 2, vis: N("t_swiat") },
-      { l: "Zapytać o wiarę i o to, czym są Dzieci Nocy", to: 3, vis: N("t_wiara") },
-      { l: "Zapytać o to, co czeka cię na szlaku", to: 4, vis: N("t_los") },
-      { l: "Poprosić o wgląd w księgi na regale", to: 5, vis: N("t_ksiegi") },
-      { l: "Dość słuchania. Spytać, po co cię tu ściągnął", to: 6 }
+      { l: "Pytam o świat i o to, co leży między krajami", to: 2, vis: N("t_swiat") },
+      { l: "Pytam o wiarę i o to, czym są Dzieci Nocy", to: 3, vis: N("t_wiara") },
+      { l: "Pytam, co czeka mnie na szlaku", to: 4, vis: N("t_los") },
+      { l: "Proszę o wgląd w księgi na regale", to: 5, vis: N("t_ksiegi") },
+      { l: "Dość słuchania. Pytam, po co mnie tu ściągnął", to: 6 }
     ] };
 
   SC[2] = { t: "Świat", chap: ["Prolog", "Gardło Śmierci"],
@@ -833,7 +837,7 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       "- Pieniądze znajdziesz tylko w miastach i zajazdach. Na wsi się wymienia, towar za towar. Handel to u nas cień handlu. Jedynym miejscem bez pana jest wielki bór na wschodnim kontynencie. Powiem ci tylko tyle: weszli do Wielkiego Boru tacy jak ty i ja, z tego czy innego powodu, i nikt z nich nie wrócił do normalności.",
       "- A klimat? - uśmiecha się krzywo. - Zimny, deszczowy i skrzętnie ponury. Podobno są na południu wyspy, gdzie jest ciepło. Może to sprawdzisz. Pewnie dopiero na emeryturze. Widziałeś kiedyś Łowcę emeryta?"
     ],
-    ch: [{ l: "Wracasz do rozmowy", to: 1 }] };
+    ch: [{ l: "Wracam do rozmowy", to: 1 }] };
 
   SC[3] = { t: "Wiara", chap: ["Prolog", "Bez imion"],
     on: function (s, E) { s.flags.t_wiara = true; },
@@ -841,7 +845,7 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       "- Czy wierzysz w jakiegoś Boga? Nie, nie odpowiadaj, tylko pytam, to ciekawość starego głupca. U nas każdy modli się do sobie znanych, ale żaden nie ma imienia. Przede wszystkim modlimy się do natury. Ziemia, nasza matka, kiedy jest litościwa, daje pożywienie i schronienie, więc dwa razy w roku, kiedy dzień jest równy nocy, prosimy ją o litość najmocniej. Wiatr łamie drzewa, z których stawiamy domy, a czasem przynosi dobrą pogodę. Ogień daje ciepło i smaczne jedzenie i, daj Boże, nie spali ci chałupy. Wody jest pod dostatkiem, przeważnie za dużo. A słońce, ach, wyjdź choć na chwilę, żebym rozgrzał stare kości.",
       "- No i są Dzieci Nocy. Raczej demony niż bogowie, ale lepiej się nie narażać, może dzisiejszej nocy ominą twoje domostwo. One jako jedyne mają imiona. Jeśli je znasz, nie wymawiaj ich, bo ściągniesz na siebie zgubę. To imiona nadane im przez nich samych albo przez ludzi. Ich prawdziwe imiona mają dopiero moc."
     ],
-    ch: [{ l: "Wracasz do rozmowy", to: 1 }] };
+    ch: [{ l: "Wracam do rozmowy", to: 1 }] };
 
   SC[4] = { t: "Przeznaczenie", chap: ["Prolog", "Cztery lata z jednym Łowcą"],
     on: function (s, E) { s.flags.t_los = true; },
@@ -852,11 +856,11 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       "- Pytasz o koniec? Jestem jedynym świadkiem jego śmierci. Nadeszła nagle, podczas księżycowej pełni. Na kilka chwil przed walką usłyszałem od niego, że to jakiś wampir wyższy, a potem krzyczał, żebym brał nogi za pas i uciekał z tego przeklętego miejsca. Usłyszałem jego krzyk, urwany w połowie przeraźliwym charkotem. Wróciłem tu, wiedziałem, że będą chcieli wiedzieć, co się stało.",
       "- Jego imię będzie pamiętane. Pamiętaj jednak, że są tacy, których imiona nigdy nie będą zapamiętane, bo nikt nie wiedział, że istnieli. Mam nadzieję, że twoje imię będzie zapamiętane. Tylko na tyle możesz liczyć."
     ],
-    ch: [{ l: "Wracasz do rozmowy", to: 1 }] };
+    ch: [{ l: "Wracam do rozmowy", to: 1 }] };
 
   SC[5] = { t: "Księgi na regale", chap: ["Prolog", "Wiedza kosztuje"],
     on: function (s, E) { s.flags.t_ksiegi = true; E.fakt("gen_domy"); E.fakt("gen_kolek"); E.fakt("gen_ogien"); },
-    test: { at: "SU", sk: "Wiedza o bestiach", st: 13, label: "Księga Ras: czytanie ze zrozumieniem",
+    test: { at: "SU", sk: "Wiedza o bestiach", st: 13, label: "Czytam Księgę Ras, powoli i ze zrozumieniem",
       ok: function (s, E) { E.fakt("draugr_rodzaj"); E.fakt("bruk_krzyk"); } },
     x: [
       "Siwy kładzie ci na kolanach wiekowy wolumin. Skóra okładki jest miękka od rąk, które ją wertowały. Pierwsza stronica kończy się ostrzeżeniem: znaleziono tu wszystko, co znane o rasach i istotach, które stąpają po tej ziemi. Niejednokrotnie przelała się krew badaczy, żebyś mógł to teraz czytać w zaciszu. Sama treść może być dla ciebie szkodliwa. Znam takich, którzy wpadli w obłęd. Pamiętaj, wiedza kosztuje.",
@@ -866,7 +870,7 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       { t: "ok", x: "Przy kilku wpisach wyłapujesz coś więcej: kto zostaje nieumarłym i na co zwracać uwagę, gdy wieś opowiada o krzyku w nocy. Zapisujesz to w Dzienniku, zanim zdążysz zapomnieć." },
       { t: "no", x: "Tekst jest gęsty jak błoto. Wyławiasz tylko to, co zdążysz zapamiętać, i wiesz, że sporo przeoczyłeś." }
     ],
-    ch: [{ l: "Zamykasz księgę i wracasz do rozmowy", to: 1 }] };
+    ch: [{ l: "Zamykam księgę i wracam do rozmowy", to: 1 }] };
 
   SC[6] = { t: "Zlecenie", chap: ["Prolog", "Szarówka"],
     on: function (s, E) { E.dodaj("bandaz", 2); },
@@ -875,7 +879,7 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       "- Mówią, że to wilki. Wilki, mówią. - Pije z kubka. - Wilki nie gonią bydła, żeby je zabić i zostawić. Ludzie z wyżyn są uparci, i jeśli teraz zaczęli się bać, to już nie wilków.",
       "- Sołtys zapłaci. Niewiele, bo nikt tam nic nie ma, ale uczciwie. Na drogę nie dam ci nic poza tą maścią i radą. Rada jest taka: nie wchodź tam z nikim. Takie rzeczy mają swoje prawa. Jeśli nie wiesz jakie, zapytaj starych bab."
     ],
-    ch: [{ l: "Ruszasz na północ", to: 7 }] };
+    ch: [{ l: "Ruszam na północ", to: 7 }] };
 
   /* ===================== DROGA ===================== */
   SC[7] = { t: "Pierwsza noc na szlaku", chap: ["Rozdział I", "Dwa dni na wyżyny"], intro: [
@@ -885,27 +889,27 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       "Nocleg to nie luksus, tylko rachunek: ile ciepła masz na sobie, ile jeszcze masz w sobie i czy masz czym zapalić. Karta postaci i plecak pokażą ci, ile zimna i głodu już uzbierałeś."
     ],
     ch: [
-      { l: "Poprosić o stodołę w zagrodzie (Charyzma, ST 11)", test: { sk: "Charyzma", st: 11, label: "Nocleg u obcych" }, toOk: 71, toNo: 72,
+      { l: "Proszę gospodarzy o stodołę (Charyzma, ST 11)", test: { sk: "Charyzma", st: 11, label: "Nocleg u obcych" }, toOk: 71, toNo: 72,
         fx: function (s, E) { E.czas(1); } },
-      { l: "Rozpalić ognisko w zagajniku", to: 8, c: function (s) { return EN.has(s, "krzesiwo"); }, why: "Nie masz krzesiwa",
+      { l: "Rozpalam ognisko w zagajniku", to: 8, c: function (s) { return EN.has(s, "krzesiwo"); }, why: "Nie masz krzesiwa",
         fx: function (s, E) { E.czas(1); E.nocleg("ognisko"); } },
-      { l: "Przespać się pod drzewem, bez ognia", to: 8, fx: function (s, E) { E.czas(1); E.nocleg("niebo"); } }
+      { l: "Kładę się pod drzewem, bez ognia", to: 8, fx: function (s, E) { E.czas(1); E.nocleg("niebo"); } }
     ] };
 
   SC[71] = { t: "Stodoła", chap: ["Rozdział I", "Obcy dach"],
     on: function (s, E) { E.nocleg("stodola"); },
     x: ["Gospodarz patrzy na ciebie dłuższą chwilę, na miecz u pasa, na płaszcz w dziurach. Potem wzrusza ramionami i wskazuje stodołę. Nie pyta o imię. Śpisz na sianie, a krowy oddychają w ciemności jak spokojne duchy. Rano w progu stoi garnek z wodą i połówka chleba. Gospodarza już nie ma."],
-    ch: [{ l: "Ruszasz dalej", to: 8 }] };
+    ch: [{ l: "Ruszam dalej", to: 8 }] };
 
   SC[72] = { t: "Zamknięte drzwi", chap: ["Rozdział I", "Odmowa"],
     on: function (s, E) { E.nocleg("niebo"); },
     x: ["- Tu nie ma dla ciebie miejsca - mówi gospodarz przez drzwi, których nie otwiera. - Łowców tu nie trzymamy. Pójdź tam, skąd przyszedłeś.", "Nie dyskutujesz. Sypiasz pod płotem, w deszczu, w mokrym płaszczu, z ręką na rękojeści. Rano jesteś wymarznięty bardziej, niż chciałbyś się przyznać."],
-    ch: [{ l: "Ruszasz dalej", to: 8 }] };
+    ch: [{ l: "Ruszam dalej", to: 8 }] };
 
   SC[8] = { t: "Drugi dzień", chap: ["Rozdział I", "Pod górę"], intro: [
     "Drugi dzień idzie pod górę, w mgle, która siada na ramionach jak mokry pies. Droga staje się ścieżką, ścieżka śladem, ślad zawraca, a ty zgadujesz, czy to ty się zgubiłeś, czy wyżyny wolą, żebyś nie dotarł. Zerkasz na buty. Dopiero teraz widzisz, że woda ma w nich stałe miejsce zamieszkania."],
     x: ["Pod wieczór widzisz pierwsze dachy Szarówki: kilkanaście chat z szarych bali, ukrytych w zagłębieniu jak zwierzęta, które wiedzą, że ktoś na nie poluje. Nad nimi, na łysym wzgórzu, widać kopiec. Zbyt okrągły jak na naturalną rzecz. Zbyt cichy jak na miejsce, gdzie wieje."],
-    ch: [{ l: "Wchodzisz do wsi", to: 9, fx: function (s, E) { E.czas(2); } }] };
+    ch: [{ l: "Wchodzę do wsi", to: 9, fx: function (s, E) { E.czas(2); } }] };
 
   SC[9] = { t: "Szarówka", chap: ["Rozdział II", "Wieś pod kurhanem"], intro: [
     "Szarówka stoi w zagłębieniu terenu, którego nie ruszyłaby ani powódź, ani woda z nieba. Tak przynajmniej myślano, kiedy ją stawiano. Kilkanaście domów, karczma, kramik, kuźnia pod dachem z dranic. Psy szczekają krótko i cichną, jakby nauczono je, że głośne szczekanie przyciąga.",
@@ -913,7 +917,7 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
     x: [
       "Zmierzcha. Kiedy stajesz na wiejskim placu, z zagrody obok wychodzi mężczyzna w skórzanym fartuchu, patrzy na ciebie, na miecz i mówi cicho: - Jeśli to ty od Siwego, sołtys czeka w karczmie. Idź tam, zanim zrobi się całkiem ciemno. Po zmroku nikt tu nie wychodzi."
     ],
-    ch: [{ l: "Idziesz na wiejski plac", to: 10 }] };
+    ch: [{ l: "Idę na wiejski plac", to: 10 }] };
 
   /* ===================== HUB ===================== */
   SC[10] = { t: "Szarówka", chap: ["Rozdział II", "Wieś"], intro: [
@@ -926,16 +930,16 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       "Co robisz?"
     ],
     ch: [
-      { l: "Karczma „Pod Zdechłym Kozłem”", to: 11, vis: DAY, fx: function (s, E) { E.czas(1); } },
-      { l: "Kramik Szymona", to: 12, vis: DAY, fx: function (s, E) { E.czas(1); } },
-      { l: "Zagroda, w której zginęło bydło", to: 13, vis: LIGHT, fx: function (s, E) { E.czas(1); }, hint: "Tylko za dnia" },
-      { l: "Chata pasterza Wojtka", to: 14, vis: DAY, fx: function (s, E) { E.czas(1); } },
-      { l: "Kurhan na wzgórzu", to: 15, vis: LIGHT, fx: function (s, E) { E.czas(1); }, hint: "Tylko za dnia" },
-      { l: "Chata zielarki Marzanny", to: 16, vis: DAY, fx: function (s, E) { E.czas(1); } },
-      { l: "Zebrać myśli i ustalić, z czym masz do czynienia", to: 20 },
-      { l: "Iść na kurhan, teraz", to: 24, vis: function (s) { return !!s.flags.sołtys || DAY(s) || NIGHT(s); }, hint: "Przygotowania i decyzja" },
-      { l: "Szukać noclegu", to: 17, vis: function (s) { return s.pora >= 2; } },
-      { l: "Czuwać na skraju wsi", to: 18, vis: NIGHT }
+      { l: "Idę do karczmy „Pod Zdechłym Kozłem”", to: 11, vis: DAY, fx: function (s, E) { E.czas(1); } },
+      { l: "Podchodzę do kramiku Szymona", to: 12, vis: DAY, fx: function (s, E) { E.czas(1); } },
+      { l: "Oglądam zagrodę, w której zginęło bydło", to: 13, vis: LIGHT, fx: function (s, E) { E.czas(1); }, hint: "Tylko za dnia" },
+      { l: "Idę do chaty pasterza Wojtka", to: 14, vis: DAY, fx: function (s, E) { E.czas(1); } },
+      { l: "Wchodzę na wzgórze, do kurhanu", to: 15, vis: LIGHT, fx: function (s, E) { E.czas(1); }, hint: "Tylko za dnia" },
+      { l: "Pukam do chaty zielarki Marzanny", to: 16, vis: DAY, fx: function (s, E) { E.czas(1); } },
+      { l: "Siadam i zbieram myśli: z czym mam do czynienia?", to: 20 },
+      { l: "Idę na kurhan, teraz", to: 24, vis: function (s) { return !!s.flags.sołtys || DAY(s) || NIGHT(s); }, hint: "Przygotowania i decyzja" },
+      { l: "Szukam miejsca na nocleg", to: 17, vis: function (s) { return s.pora >= 2; } },
+      { l: "Czuwam na skraju wsi", to: 18, vis: NIGHT }
     ] };
 
   /* ===================== LUDZIE I MIEJSCA ===================== */
@@ -948,13 +952,13 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
     ],
     on: function (s, E) { if (!s.flags.sołtys) { s.flags.sołtys = true; E.notatka("Sołtys Kruk płaci 30 MD, jeśli polowanie się uda."); } },
     ch: [
-      { l: "Targować się o zapłatę (Charyzma, ST 12)", test: { sk: "Charyzma", st: 12, label: "Targ z sołtysem",
+      { l: "Targuję się o zapłatę (Charyzma, ST 12)", test: { sk: "Charyzma", st: 12, label: "Targ z sołtysem",
           ok: function (s, E) { s.flags.targ_ok = true; E.chip("Sołtys zgadza się na 45 MD i kolację", "pos"); },
           no: function (s, E) { E.chip("Sołtys się obraża. Zostaje przy 30 MD", "neg"); } }, to: 11, c: N("targ_probowano"), why: "Już próbowałeś",
         fx: function (s, E) { s.flags.targ_probowano = true; } },
-      { l: "Zapytać o Jędrzeja Wronę", to: 111, vis: N("jedrzej_pytano") },
-      { l: "Wynająć miejsce w izbie na noc (3 MD)", to: 112, vis: function (s) { return s.pora >= 2; }, c: function (s) { return s.money >= 3 * MD; }, why: "Brakuje Ci 3 MD" },
-      { l: "Wychodzisz", to: 10 }
+      { l: "Pytam o Jędrzeja Wronę", to: 111, vis: N("jedrzej_pytano") },
+      { l: "Wynajmuję miejsce w izbie na noc (3 MD)", to: 112, vis: function (s) { return s.pora >= 2; }, c: function (s) { return s.money >= 3 * MD; }, why: "Brakuje Ci 3 MD" },
+      { l: "Wychodzę", to: 10 }
     ] };
 
   SC[111] = { t: "O Jędrzeju", chap: ["Rozdział II", "Karczma"],
@@ -964,12 +968,12 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       "- Ziemia była zmarznięta na łokieć głębokości - mówi karczmarz cicho. - Nie dało się wykopać grobu. Ksiądz z doliny nie przyjechał, bo drogi pozamiatało śniegiem. Zawinęliśmy go w płótno i położyliśmy do starego kurhanu na wzgórzu, żeby nie leżał na mrozie, aż ziemia puści. No i... ziemia puściła. Ale my już tam nie poszliśmy.",
       "- Nikt nie lubi chodzić na ten kurhan - dodaje sołtys. - Od zawsze był przeklęty. Dziadowie mówili, że to grób jakiegoś dawnego pana. Nikt nie znał jego imienia."
     ],
-    ch: [{ l: "Wracasz do rozmowy", to: 11 }] };
+    ch: [{ l: "Wracam do rozmowy", to: 11 }] };
 
   SC[112] = { t: "Nocleg w izbie", chap: ["Rozdział II", "Pod dachem"],
     x: ["Pościel pachnie kapustą i dymem, pod głową masz worek słomy. Za ścianą ktoś kaszle całą noc. Mimo to śpisz jak człowiek, który ma nad sobą dach, a przed sobą drzwi, i jest to najlepsze, co może ci dać Szarówka."],
     on: function (s, E) { E.kasa(-3 * MD); E.nocleg("karczma"); nightFall(s, E); },
-    ch: [{ l: "Rano", to: 19 }] };
+    ch: [{ l: "Czekam do rana", to: 19 }] };
 
   SC[12] = { t: "Kramik Szymona", chap: ["Rozdział II", "Handel"], intro: [
     "Szymon, kramarz, ma twarz człowieka, który widział bankructwo i go nie wybaczył. Jego kramik to trzy półki i beczka. Pytasz o ceny. Odpowiada, nie podnosząc wzroku: - Wszystko za miedziaki. Wymiany nie biorę, chyba że to coś, czego sam potrzebuję."],
@@ -979,7 +983,7 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
         { id: "sol" }, { id: "ocet" }, { id: "kozik" }, { id: "topor" }, { id: "maczuga" },
         { id: "trzewiki" }, { id: "buty" }, { id: "plaszcz" }, { id: "kurtka" }, { id: "spodnie_s" }, { id: "czepiec" },
         { id: "p_skorzany" }, { id: "p_cwiek" }] },
-    ch: [{ l: "Wychodzisz", to: 10 }] };
+    ch: [{ l: "Wychodzę", to: 10 }] };
 
   SC[13] = { t: "Zagroda Kopciuchów", chap: ["Rozdział II", "Ślady"], intro: [
     "Zagroda jest na skraju wsi, pod wzgórzem. Obora otwarta, wrota wyrwane z zawiasów. W środku leżą krowy, w pozach, które żadnej krowie się nie przytrafiają: łby zadarte, oczy wywrócone, kopyta zakrzywione od biegu, którego nie dokończyły."],
@@ -992,7 +996,7 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       { t: "ok", x: "Przy wyrwanych wrotach, w błocie, odciski bosych stóp. Za duże jak na człowieka, za głębokie jak na samotnego. Za nimi ślad ciągnięcia. To, co tu było, szło wolno, bez pośpiechu, i wracało prosto na wzgórze, jakby znało drogę na pamięć. Dotykasz śladu: woda w nim jest zimna jak studnia w styczniu, choć błoto wokół jeszcze nie zamarzło." },
       { t: "no", x: "Ślady są, ale deszcz rozmył to, co mogło coś znaczyć. Widzisz tylko, że wszystko idzie jednym kierunkiem: na wzgórze." }
     ],
-    ch: [{ l: "Wychodzisz", to: 10 }] };
+    ch: [{ l: "Wychodzę", to: 10 }] };
 
   SC[14] = { t: "Chata Wojtka", chap: ["Rozdział II", "Ranny pasterz"], intro: [
     "Wojtek Kopeć leży w łóżku z zabandażowaną ręką, w której nie ma już czucia. Ma z czterdzieści lat i wygląda na sześćdziesiąt. Patrzy na ciebie z lękiem, który ma już własny kształt: kształt stworzenia, które nie mruga."],
@@ -1000,13 +1004,13 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       "- To nie wilk - powtarza, zanim ktokolwiek o to zapyta. - Wilk robi hałas. Tamto nie robiło. Przyszło po stado, ja stanąłem przed nim, a ono przeszło mnie, jak się przechodzi przez płot."
     ],
     ch: [
-      { l: "Opatrzyć mu rękę (bandaż, Pierwsza pomoc)", to: 141, c: function (s) { return EN.has(s, "bandaz"); }, why: "Nie masz bandaży", vis: N("wojtek_pytany"),
+      { l: "Opatruję mu rękę (bandaż, Pierwsza pomoc)", to: 141, c: function (s) { return EN.has(s, "bandaz"); }, why: "Nie masz bandaży", vis: N("wojtek_pytany"),
         fx: function (s, E) { E.zabierz("bandaz", 1); E.rep("lud", 1); s.flags.wojtek_pytany = true; } },
-      { l: "Naciskać, zmusić do mówienia (Zastraszanie, ST 10)", test: { sk: "Zastraszanie", st: 10, label: "Przesłuchanie",
+      { l: "Naciskam, zmuszam go do mówienia (Zastraszanie, ST 10)", test: { sk: "Zastraszanie", st: 10, label: "Przesłuchanie",
           ok: function (s, E) { E.fakt("draugr_sila"); E.notatka("Wojtek: czarny, wysoki, bez krzyku. Patrzył i przeszedł."); },
           no: function (s, E) { E.chip("Wojtek zamyka się w sobie", "neg"); } }, to: 14, vis: N("wojtek_pytany"),
         fx: function (s, E) { s.flags.wojtek_pytany = true; E.rep("lud", -1); } },
-      { l: "Wychodzisz", to: 10 }
+      { l: "Wychodzę", to: 10 }
     ] };
 
   SC[141] = { t: "Opatrunek", chap: ["Rozdział II", "Ranny pasterz"],
@@ -1015,7 +1019,7 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       "Rozwijasz stary opatrunek. Pod nim ręka jest sina i zimna jak coś, co dotknęło lodu. Czyścisz, smarujesz, wiążesz. Wojtek patrzy w sufit i mówi, jakby mówił do niego.",
       "- Był czarny. Nie jak sadza, jak śmierć. Wysoki jak drzwi. Zimny, czułem to z trzech kroków. Nie krzyknął. Wszyscy mówią, że takie rzeczy krzyczą. Ono nie. Ono patrzyło na mnie, jakby zazdrościło mi, że stoję. Jakby chciało mi to zabrać."
     ],
-    ch: [{ l: "Wychodzisz", to: 10 }] };
+    ch: [{ l: "Wychodzę", to: 10 }] };
 
   SC[15] = { t: "Kurhan", chap: ["Rozdział II", "Wzgórze"], intro: [
     "Kurhan jest wyższy, niż z dołu wyglądał. Trawa wokół jest dziwnie krótka, wypalona, jakby ktoś przeszedł tędy z lodem zamiast ognia. Nad wejściem, które nie jest wejściem, tylko szczeliną między dwoma głazami, wisi cisza."],
@@ -1025,7 +1029,7 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       { t: "ok", x: "Przy wejściu kamień jest odsunięty od środka, nie od zewnątrz. Ziemia wokół szczeliny pokryta jest szronem, choć jesień dopiero zaczęła się na dobre. Zapach: mokra ziemia i coś słodkiego, od którego robi się nieswojo. Ktoś, kto leży tu za dnia, dobrze zna drogę do wsi w nocy." },
       { t: "no", x: "Kopiec jest kopcem. Szczelina między głazami za ciasna, żeby się przecisnąć, a odór z wnętrza odrzuca każdą ciekawość. Nic konkretnego nie przychodzi ci do głowy." }
     ],
-    ch: [{ l: "Schodzisz", to: 10 }] };
+    ch: [{ l: "Schodzę ze wzgórza", to: 10 }] };
 
   SC[16] = { t: "Chata Marzanny", chap: ["Rozdział II", "Zielarka"], intro: [
     "Marzanna mieszka na skraju lasu, w chacie tak starej, że sama wydaje się rośliną. Pęki ziół wiszą pod stropem. Zapach jest ostry i mądry. Sama Marzanna: niska, sucha, z oczami jak dwa świdry, patrzy na ciebie, jakbyś był chorobą, której nie jest pewna, czy chce leczyć."],
@@ -1035,10 +1039,10 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
     ],
     on: function (s, E) { if (!s.flags.marzanna_rodzaj) { s.flags.marzanna_rodzaj = true; E.fakt("draugr_rodzaj"); E.fakt("gen_wiedzmy"); } },
     ch: [
-      { l: "Zapłacić 5 MD za wskazówki, jak go zabić", to: 161, c: function (s) { return s.money >= 5 * MD; }, why: "Brakuje Ci 5 MD", vis: N("rytual_znany"),
+      { l: "Płacę 5 MD za wskazówki, jak go zabić", to: 161, c: function (s) { return s.money >= 5 * MD; }, why: "Brakuje Ci 5 MD", vis: N("rytual_znany"),
         fx: function (s, E) { E.kasa(-5 * MD); } },
-      { l: "Przekonać ją, by powiedziała za darmo (Charyzma, ST 12)", test: { sk: "Charyzma", st: 12, label: "Rozmowa z Marzanną" }, toOk: 161, toNo: 162, vis: N("rytual_znany") },
-      { l: "Wychodzisz", to: 10 }
+      { l: "Przekonuję ją, by powiedziała za darmo (Charyzma, ST 12)", test: { sk: "Charyzma", st: 12, label: "Rozmowa z Marzanną" }, toOk: 161, toNo: 162, vis: N("rytual_znany") },
+      { l: "Wychodzę", to: 10 }
     ] };
 
   SC[161] = { t: "Rytuał", chap: ["Rozdział II", "Zielarka"],
@@ -1047,20 +1051,20 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       "Marzanna przeciera dłonie fartuchem i wyciąga zza pieca zakurzoną księgę, którą ledwo otwiera. - Nie czytaj, tylko słuchaj. Taki jak on odchodzi tylko wtedy, kiedy zmierzy się go jeden na jednego. Jeśli ktoś stanie obok ciebie, choćby po to, żeby pomóc, nic nie wyjdzie. Rozumiesz? Nic.",
       "- Kiedy położysz go, ściąć mu głowę. Mieczem, siekierą, byle ostrym. Potem spalić, do zimnych popiołów, nie do ciepłych. A popioły, to najważniejsze, trzeba pogrzebać daleko od wsi. Albo oddać wodzie. Rzeka weźmie je dalej, niż ty zaniesiesz. Jeśli zostawisz je blisko, wróci. Jeśli zostawisz ciało całe, wróci. Jeśli ktoś ci pomoże, wróci."
     ],
-    ch: [{ l: "Dziękujesz i wychodzisz", to: 10 }] };
+    ch: [{ l: "Dziękuję i wychodzę", to: 10 }] };
 
   SC[162] = { t: "Odmowa", chap: ["Rozdział II", "Zielarka"],
     x: ["Marzanna uśmiecha się cienko. - Młody, zadziorny, i chciałby wszystko za darmo. Nie ze mną. Wróć, jak zrozumiesz, że wiedza ma cenę. Teraz idź, bo mi zioła więdną od twojego ciężkiego oddechu."],
-    ch: [{ l: "Wychodzisz", to: 10 }] };
+    ch: [{ l: "Wychodzę", to: 10 }] };
 
   /* ===================== NOC I RANO ===================== */
   SC[17] = { t: "Nocleg w Szarówce", chap: ["Rozdział II", "Noc"], intro: [
     "Szarówka wygląda w nocy jak opuszczona. Nikt nie pali świateł, nikt nie spaceruje. Tylko psy czasem warczą, a potem cichną, jakby ktoś odebrał im głos."],
     x: ["Musisz się gdzieś ułożyć. Możesz zaryzykować stodołę, wynająć miejsce w karczmie albo przespać się pod chmurką, jak na szlaku."],
     ch: [
-      { l: "Wynająć miejsce w karczmie (3 MD)", to: 112, c: function (s) { return s.money >= 3 * MD; }, why: "Brakuje Ci 3 MD" },
-      { l: "Przespać się w stodole przy placu", to: 19, fx: function (s, E) { E.nocleg("stodola"); nightFall(s, E); } },
-      { l: "Przespać się pod chmurką", to: 19, fx: function (s, E) { E.nocleg("niebo"); nightFall(s, E); } }
+      { l: "Wynajmuję miejsce w karczmie (3 MD)", to: 112, c: function (s) { return s.money >= 3 * MD; }, why: "Brakuje Ci 3 MD" },
+      { l: "Śpię w stodole przy placu", to: 19, fx: function (s, E) { E.nocleg("stodola"); nightFall(s, E); } },
+      { l: "Śpię pod gołym niebem", to: 19, fx: function (s, E) { E.nocleg("niebo"); nightFall(s, E); } }
     ] };
 
   SC[18] = { t: "Straż na skraju wsi", chap: ["Rozdział II", "Czuwanie"], intro: [
@@ -1072,8 +1076,8 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       { t: "no", x: "Przysypiasz, choć obiecałeś sobie, że nie zaśniesz. Budzi cię krzyk w oddali, potem cisza. Za późno, żeby cokolwiek zobaczyć." }
     ],
     ch: [
-      { l: "Ruszyć za nim w ciemność, teraz", to: 24, vis: function (s) { return s.tr === "ok"; }, fx: function (s, E) { s.flags.nocny_pochod = true; } },
-      { l: "Pozwolić odejść i doczekać rana", to: 19, fx: function (s, E) { E.nocleg("niebo"); nightFall(s, E); } }
+      { l: "Ruszam za nim w ciemność, teraz", to: 24, vis: function (s) { return s.tr === "ok"; }, fx: function (s, E) { s.flags.nocny_pochod = true; } },
+      { l: "Pozwalam mu odejść i czekam rana", to: 19, fx: function (s, E) { E.nocleg("niebo"); nightFall(s, E); } }
     ] };
 
   SC[19] = { t: "Poranek", chap: ["Rozdział II", "Rano"], intro: [
@@ -1083,7 +1087,7 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       { c: function (s) { return s.flags.noce === 2; }, x: "Wieś nie stoi w grupkach, tylko wokół jednego miejsca. Parobek Staszek został znaleziony przy studni. Bez śladów, bez krwi, tylko oczy otwarte i twarz zwrócona w stronę wzgórza. Kobiety płaczą w milczeniu, mężczyźni zaciskają szczęki. Sołtys patrzy na ciebie i nie musi nic mówić." },
       { c: function (s) { return (s.flags.noce || 0) >= 3; }, x: "Szarówka jest jak chora. Dwie rodziny odjechały nocą. Kramik Szymona stoi zamknięty. Ci, którzy zostali, patrzą na ciebie z mieszaniną nadziei i pretensji, z którą nie umiesz nic zrobić." }
     ],
-    ch: [{ l: "Wracasz do wsi", to: 10 }] };
+    ch: [{ l: "Wracam do wsi", to: 10 }] };
 
   /* ===================== ROZPOZNANIE ===================== */
   SC[20] = { t: "Co to jest?", chap: ["Rozdział III", "Zebrać myśli"], intro: [
@@ -1101,9 +1105,9 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       "Możesz rozpoznać, z czym masz do czynienia. Od tego zależy, czego będziesz się trzymał w walce i czym będziesz ją kończył."
     ],
     ch: [
-      { l: "To Draugr", to: 24, fx: function (s, E) { s.flags.rozp = "draugr"; E.chip("Wniosek: Draugr", "note"); } },
-      { l: "To Brukołak", to: 24, fx: function (s, E) { s.flags.rozp = "brukolak"; E.chip("Wniosek: Brukołak", "note"); } },
-      { l: "To Wrykołak", to: 24, fx: function (s, E) { s.flags.rozp = "wrykolak"; E.chip("Wniosek: Wrykołak", "note"); } },
+      { l: "Jestem {pewien|pewna}: to Draugr", to: 24, fx: function (s, E) { s.flags.rozp = "draugr"; E.chip("Wniosek: Draugr", "note"); } },
+      { l: "Jestem {pewien|pewna}: to Brukołak", to: 24, fx: function (s, E) { s.flags.rozp = "brukolak"; E.chip("Wniosek: Brukołak", "note"); } },
+      { l: "Jestem {pewien|pewna}: to Wrykołak", to: 24, fx: function (s, E) { s.flags.rozp = "wrykolak"; E.chip("Wniosek: Wrykołak", "note"); } },
       { l: "Wiem za mało. Wracam do wsi", to: 10 }
     ] };
 
@@ -1118,38 +1122,38 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       { c: F("bartek_sprawa"), x: "Bartek stoi gdzieś z boku i udaje, że go tam nie ma." }
     ],
     ch: [
-      { l: "Odesłać Bartka do domu (Zastraszanie, ST 11)", vis: N("bartek_sprawa"), test: { sk: "Zastraszanie", st: 11, label: "Odesłanie Bartka" }, toOk: 241, toNo: 242 },
-      { l: "Przekonać go, że może pomóc inaczej (Charyzma, ST 12)", vis: N("bartek_sprawa"), test: { sk: "Charyzma", st: 12, label: "Przekonanie Bartka" }, toOk: 241, toNo: 242 },
-      { l: "Pozwolić mu iść z Tobą", to: 243, vis: N("bartek_sprawa") },
-      { l: "Zrobić jeszcze zakupy w kramiku", to: 12, fx: function (s, E) { E.czas(1); } },
-      { l: "Wejść do kurhanu za dnia", to: 30, vis: function (s) { return LIGHT(s) && !!s.flags.bartek_sprawa; } },
-      { l: "Czekać nocą przy kurhanie", to: 26, vis: function (s) { return !!s.flags.bartek_sprawa; },
+      { l: "Odsyłam Bartka do domu (Zastraszanie, ST 11)", vis: N("bartek_sprawa"), test: { sk: "Zastraszanie", st: 11, label: "Odesłanie Bartka" }, toOk: 241, toNo: 242 },
+      { l: "Przekonuję go, że może pomóc inaczej (Charyzma, ST 12)", vis: N("bartek_sprawa"), test: { sk: "Charyzma", st: 12, label: "Przekonanie Bartka" }, toOk: 241, toNo: 242 },
+      { l: "Pozwalam mu iść ze sobą", to: 243, vis: N("bartek_sprawa") },
+      { l: "Robię jeszcze zakupy w kramiku", to: 12, fx: function (s, E) { E.czas(1); } },
+      { l: "Wchodzę do kurhanu za dnia", to: 30, vis: function (s) { return LIGHT(s) && !!s.flags.bartek_sprawa; } },
+      { l: "Czekam nocą przy kurhanie", to: 26, vis: function (s) { return !!s.flags.bartek_sprawa; },
         fx: function (s, E) { if (s.pora < 3) E.czas(3 - s.pora); } },
-      { l: "Wracasz do wsi", to: 10 }
+      { l: "Wracam do wsi", to: 10 }
     ] };
 
   SC[241] = { t: "Bartek zostaje", chap: ["Rozdział III", "Zanim wejdziesz"],
     on: function (s, E) { s.flags.bartek_sprawa = true; E.rep("lud", 1); },
     x: ["Bartek opuszcza głowę, zaciska szczękę i, choć widać, że kosztuje go to więcej niż wszystko, co dotąd zrobił w życiu, cofa się. - Wróć - mówi cicho. - Żywy."],
-    ch: [{ l: "Wracasz do przygotowań", to: 24 }] };
+    ch: [{ l: "Wracam do przygotowań", to: 24 }] };
 
   SC[242] = { t: "Bartek nie słucha", chap: ["Rozdział III", "Zanim wejdziesz"],
     on: function (s, E) { s.flags.bartek_sprawa = true; s.flags.bartek_idzie = true; s.flags.bartek_los = EN.d(2); },
     x: ["Bartek kiwa głową, patrzy ci w oczy i mówi, że rozumie. Jest w tym coś, co nie przekonuje. Odwraca się i wraca do domu. Ale w jego chodzie jest coś, co każdy Łowca zna z doświadczenia: to krok człowieka, który właśnie podjął decyzję i nie zamierza o niej nikomu mówić."],
-    ch: [{ l: "Wracasz do przygotowań", to: 24 }] };
+    ch: [{ l: "Wracam do przygotowań", to: 24 }] };
 
   SC[243] = { t: "Bartek idzie", chap: ["Rozdział III", "Zanim wejdziesz"],
     on: function (s, E) { s.flags.bartek_sprawa = true; s.flags.bartek_idzie = true; s.flags.bartek_los = EN.d(2); E.chip("Bartek idzie z Tobą", "neg"); },
     x: ["Bartek rozjaśnia się jak mały chłopiec. Podaje ci rękę, niezdarnie, jak przyjacielowi. Z jakiegoś powodu czujesz, że właśnie popełniłeś błąd, którego nie umiesz nazwać."],
-    ch: [{ l: "Wracasz do przygotowań", to: 24 }] };
+    ch: [{ l: "Wracam do przygotowań", to: 24 }] };
 
   /* ===================== KURHAN: DZIEŃ ===================== */
   SC[30] = { t: "Do wnętrza za dnia", chap: ["Rozdział IV", "Szczelina"], intro: [
     "Idziesz na wzgórze przy szarym świetle dnia. Deszcz ustał, i to jest gorsze, bo teraz słyszysz własne kroki. Przy szczelinie między głazami stoisz dłużej, niż chciałbyś przyznać."],
     x: ["Wnętrze kurhanu śpi. Jeśli to, co w nim leży, nie czuje twojej obecności, możesz mieć przewagę pierwszego ciosu. Ale najpierw trzeba odsunąć kamień i nie narobić hałasu."],
     ch: [
-      { l: "Odsunąć kamień i wejść cicho (Skradanie, ST 12)", test: { sk: "Skradanie", st: 12, label: "Wejście do kurhanu" }, toOk: 31, toNo: 311 },
-      { l: "Wycofać się", to: 24 }
+      { l: "Odsuwam kamień i wchodzę cicho (Skradanie, ST 12)", test: { sk: "Skradanie", st: 12, label: "Wejście do kurhanu" }, toOk: 31, toNo: 311 },
+      { l: "Wycofuję się", to: 24 }
     ] };
 
   SC[31] = { t: "Uśpiony", chap: ["Rozdział IV", "Szczelina"],
@@ -1159,7 +1163,7 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       "Wyciągasz miecz i robisz krok."
     ],
     after: [{ x: "Wyskakuje z ciemności ostatnim ruchem, którego się nie spodziewał nawet on sam. A potem, nagle, jest tylko cisza, i ciężki oddech tego, kto przeżył." }],
-    ch: [{ l: "Zająć się rytuałem", to: 28, c: function (s) { return !!s.flags.pokonany_draugr; }, why: "Walka jeszcze trwa" }] };
+    ch: [{ l: "Zabieram się za rytuał", to: 28, c: function (s) { return !!s.flags.pokonany_draugr; }, why: "Walka jeszcze trwa" }] };
 
   SC[311] = { t: "Hałas", chap: ["Rozdział IV", "Szczelina"],
     fight: { foes: [{ base: "draugr", n: "Draugr" }], surprise: 0, flee: 32 },
@@ -1167,7 +1171,7 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       "Kamień trzeszczy, kruszy się coś pod stopą. W niszy poruszają się oczy, które nie mają białek. Wielki cień unosi się z ziemi, prostując się bez pośpiechu. Nie rzuca się. Podchodzi, jakby sprawdzał, kto ma odwagę stać."
     ],
     after: [{ x: "Kiedy cień w końcu pada, w grobowcu zapada cisza, a ty stoisz nad nim dłuższą chwilę, dopóki ręce przestają drżeć." }],
-    ch: [{ l: "Zająć się rytuałem", to: 28, c: function (s) { return !!s.flags.pokonany_draugr; }, why: "Walka jeszcze trwa" }] };
+    ch: [{ l: "Zabieram się za rytuał", to: 28, c: function (s) { return !!s.flags.pokonany_draugr; }, why: "Walka jeszcze trwa" }] };
 
   /* ===================== KURHAN: NOC ===================== */
   SC[26] = { t: "Kurhan nocą", chap: ["Rozdział IV", "Pojedynek"], intro: [
@@ -1179,7 +1183,7 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
     ],
     on: function (s, E) { if (s.flags.bartek_idzie) { s.flags.rytual_zepsuty = true; E.chip("Pojedynek zepsuty przez Bartka", "neg"); } },
     ch: [
-      { l: "Stanąć do walki", to: 27 }
+      { l: "Staję do walki", to: 27 }
     ] };
 
   SC[27] = { t: "Draugr", chap: ["Rozdział IV", "Pojedynek"],
@@ -1190,12 +1194,12 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       { c: function (s) { return !!s.flags.bartek_idzie && s.flags.bartek_los === 1; }, x: "Bartek leży kilka kroków dalej, twarzą do ziemi. Dłoń zaciśnięta na drzewcu kosy. Nie rusza się." },
       { c: function (s) { return !!s.flags.bartek_idzie && s.flags.bartek_los === 2; }, x: "Bartek siedzi pod głazem, trzymając się za żebra, blady jak ściana. Żyje. Będzie żył, jeśli ktoś mu pomoże, i jeśli zdoła przekonać samego siebie, że ten wieczór się nie wydarzył." }
     ],
-    ch: [{ l: "Zająć się rytuałem", to: 28, c: function (s) { return !!s.flags.pokonany_draugr; }, why: "Walka jeszcze trwa" }] };
+    ch: [{ l: "Zabieram się za rytuał", to: 28, c: function (s) { return !!s.flags.pokonany_draugr; }, why: "Walka jeszcze trwa" }] };
 
   SC[32] = { t: "Ucieczka", chap: ["Rozdział IV", "Odwrót"],
     on: function (s, E) { s.flags.ucieklem = true; E.rep("lud", -1); E.czl(-5, "ucieczka"); s.flags.strach = (s.flags.strach || 0) + 1; E.czas(1); },
     x: ["Biegniesz. Nie jest to bohaterskie, ale też nie jest głupie. Wiatr szarpie płaszczem, a za plecami słychać zimne, powolne kroki, które nie muszą się spieszyć. Docierasz na plac w Szarówce, z sercem w gardle. Ludzie widzą. Nikt nic nie mówi."],
-    ch: [{ l: "Wracasz do wsi", to: 10 }] };
+    ch: [{ l: "Wracam do wsi", to: 10 }] };
 
   /* ===================== RYTUAŁ ===================== */
   SC[28] = { t: "Rytuał", chap: ["Rozdział V", "Po walce"], intro: [
@@ -1210,25 +1214,25 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       { c: function (s) { return s.flags.r_pochowek === "blisko"; }, x: "- Popioły zostały blisko wsi." }
     ],
     ch: [
-      { l: "Ściąć mu głowę", to: 28, vis: N("r_glowa"), c: function (s) { return !!EN.weapon(s).ciecie; }, why: "Twoja broń nie nadaje się do ścinania głowy",
+      { l: "Ścinam mu głowę", to: 28, vis: N("r_glowa"), c: function (s) { return !!EN.weapon(s).ciecie; }, why: "Twoja broń nie nadaje się do ścinania głowy",
         fx: function (s, E) { s.flags.r_glowa = true; E.chip("Głowa odcięta", "note"); } },
-      { l: "Spalić ciało i głowę", to: 28, vis: function (s) { return !!s.flags.r_glowa && !s.flags.r_ogien; },
+      { l: "Palę ciało i głowę", to: 28, vis: function (s) { return !!s.flags.r_glowa && !s.flags.r_ogien; },
         c: function (s) { return EN.has(s, "krzesiwo") && (EN.qty(s, "olej") >= 1 || EN.qty(s, "pochodnia") >= 2); }, why: "Potrzebujesz krzesiwa i oleju (albo dwóch pochodni)",
         fx: function (s, E) { if (EN.qty(s, "olej") >= 1) E.zabierz("olej", 1); else E.zabierz("pochodnia", 2); s.flags.r_ogien = true; E.czas(1); E.chip("Zimne popioły", "note"); } },
-      { l: "Ułożyć stos z chrustu i drewna z okolicy (krzesiwo, trwa dwie pory, zimno)", to: 28, vis: function (s) { return !!s.flags.r_glowa && !s.flags.r_ogien && !(EN.has(s, "krzesiwo") && (EN.qty(s, "olej") >= 1 || EN.qty(s, "pochodnia") >= 2)); },
+      { l: "Układam stos z chrustu i drewna z okolicy (krzesiwo, dwie pory, zimno)", to: 28, vis: function (s) { return !!s.flags.r_glowa && !s.flags.r_ogien && !(EN.has(s, "krzesiwo") && (EN.qty(s, "olej") >= 1 || EN.qty(s, "pochodnia") >= 2)); },
         c: function (s) { return EN.has(s, "krzesiwo"); }, why: "Bez krzesiwa nie rozpalisz nawet chrustu",
         fx: function (s, E) { s.flags.r_ogien = true; E.czas(2); E.zimno(1); E.chip("Zimne popioły (po długiej nocy przy stosie)", "note"); } },
-      { l: "Przypomnieć sobie, co jeszcze trzeba zrobić (Wiedza o bestiach, ST 14)", vis: function (s) { return !s.dz.draugr_rytual; },
+      { l: "Staram się przypomnieć, co jeszcze trzeba zrobić (Wiedza o bestiach, ST 14)", vis: function (s) { return !s.dz.draugr_rytual; },
         test: { sk: "Wiedza o bestiach", st: 14, label: "Intuicja Łowcy", ok: function (s, E) { E.fakt("draugr_rytual"); } }, to: 28 },
-      { l: "Zanieść popioły daleko od wsi i pogrzebać je w ziemi", to: 29, vis: function (s) { return !!s.flags.r_ogien && !s.flags.r_pochowek; }, c: D("draugr_rytual"), why: "Nie wiesz, że to wymagane",
+      { l: "Niosę popioły daleko od wsi i zakopuję je w ziemi", to: 29, vis: function (s) { return !!s.flags.r_ogien && !s.flags.r_pochowek; }, c: D("draugr_rytual"), why: "Nie wiesz, że to wymagane",
         fx: function (s, E) { s.flags.r_pochowek = "daleko"; E.czas(1); } },
-      { l: "Wrzucić popioły do rzeki", to: 29, vis: function (s) { return !!s.flags.r_ogien && !s.flags.r_pochowek; }, c: D("draugr_rytual"), why: "Nie wiesz, że to wymagane",
+      { l: "Wrzucam popioły do rzeki", to: 29, vis: function (s) { return !!s.flags.r_ogien && !s.flags.r_pochowek; }, c: D("draugr_rytual"), why: "Nie wiesz, że to wymagane",
         fx: function (s, E) { s.flags.r_pochowek = "daleko"; E.czas(1); } },
-      { l: "Pochować popioły obok grobu Hanny, żony Jędrzeja", to: 29, vis: function (s) { return !!s.flags.r_ogien && !s.flags.r_pochowek; },
+      { l: "Chowam popioły obok grobu Hanny, żony Jędrzeja", to: 29, vis: function (s) { return !!s.flags.r_ogien && !s.flags.r_pochowek; },
         fx: function (s, E) { s.flags.r_pochowek = "hanna"; E.czas(1); E.czl(10, "litość"); } },
-      { l: "Zostawić popioły i wracać do wsi", to: 29, vis: function (s) { return !!s.flags.r_ogien && !s.flags.r_pochowek; },
+      { l: "Zostawiam popioły i wracam do wsi", to: 29, vis: function (s) { return !!s.flags.r_ogien && !s.flags.r_pochowek; },
         fx: function (s, E) { s.flags.r_pochowek = "blisko"; } },
-      { l: "Wracać do wsi (rytuał nieskończony)", to: 29, vis: function (s) { return !s.flags.r_ogien; },
+      { l: "Wracam do wsi (rytuał nieskończony)", to: 29, vis: function (s) { return !s.flags.r_ogien; },
         fx: function (s, E) { s.flags.r_pochowek = "brak"; } }
     ] };
 
@@ -1244,8 +1248,8 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
         x: "Szarzeje. Zrobiłeś to inaczej, niż mówią księgi, bo uznałeś, że człowiek, który zazdrościł żywym, zasługuje na to, żeby choć raz leżeć przy tej, którą kochał. Nie wiesz, czy to nie był błąd. Nie wiesz jeszcze." }
     ],
     ch: [
-      { l: "Wchodzisz do wsi", to: 33, c: function (s) { return !!s.flags.pokonany_draugr; }, vis: function (s) { return !(s.flags.rytual_zepsuty || s.flags.r_pochowek === "brak" || s.flags.r_pochowek === "blisko" || !s.flags.r_glowa || !s.flags.r_ogien); } },
-      { l: "Wchodzisz do wsi", to: 36, vis: function (s) { return !!(s.flags.rytual_zepsuty || s.flags.r_pochowek === "brak" || s.flags.r_pochowek === "blisko" || !s.flags.r_glowa || !s.flags.r_ogien); } }
+      { l: "Wchodzę do wsi", to: 33, c: function (s) { return !!s.flags.pokonany_draugr; }, vis: function (s) { return !(s.flags.rytual_zepsuty || s.flags.r_pochowek === "brak" || s.flags.r_pochowek === "blisko" || !s.flags.r_glowa || !s.flags.r_ogien); } },
+      { l: "Wchodzę do wsi", to: 36, vis: function (s) { return !!(s.flags.rytual_zepsuty || s.flags.r_pochowek === "brak" || s.flags.r_pochowek === "blisko" || !s.flags.r_glowa || !s.flags.r_ogien); } }
     ] };
 
   /* ===================== POWRÓT (rytuał zepsuty) ===================== */
@@ -1256,13 +1260,13 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       { c: function (s) { return !!s.flags.rytual_zepsuty; }, x: "Pojedynek był zepsuty. To wystarczyło." },
       { c: function (s) { return !s.flags.rytual_zepsuty; }, x: "Rytuał był niepełny. To wystarczyło." }
     ],
-    ch: [{ l: "Wyjść mu naprzeciw", to: 37 }] };
+    ch: [{ l: "Wychodzę mu naprzeciw", to: 37 }] };
 
   SC[37] = { t: "Powrót Draugra", chap: ["Rozdział V", "Druga noc"],
     fight: { foes: [{ base: "draugr", zyw: 20, atkMod: -1, n: "Draugr (wrócił)" }], flee: 32 },
     x: ["Nie masz już siły, żeby się bać. Ma jeszcze mniej wiary w siebie niż ty. Idzie wolniej, a jednak z tym samym uporem."],
     after: [{ x: "Tym razem jest inaczej. Kiedy pada, ciało prawie rozsypuje się w proch. Zrobiłeś, co trzeba, tym razem do końca." }],
-    ch: [{ l: "Zakończyć sprawę", to: 33, c: function (s) { return !!s.flags.pokonany_draugr; }, why: "Walka jeszcze trwa",
+    ch: [{ l: "Kończę sprawę", to: 33, c: function (s) { return !!s.flags.pokonany_draugr; }, why: "Walka jeszcze trwa",
       fx: function (s, E) { s.flags.r_glowa = true; s.flags.r_ogien = true; s.flags.r_pochowek = "daleko"; s.flags.drugi_raz = true; E.czas(2); } }] };
 
   /* ===================== ZAKOŃCZENIE ===================== */
@@ -1291,7 +1295,7 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       { c: function (s) { return s.flags.r_pochowek === "daleko"; }, x: "Marzanna kiwa ci z daleka głową. To najwięcej, co Łowca może liczyć w takim miejscu." },
       "Zanim odejdziesz, wracasz jeszcze na wzgórze, w dzień. Kurhan jest teraz tylko kopcem. W głębi, w niszy, gdzie Draugr leżał, coś błyszczy. Podnosisz to. Srebrny sygnet z wyrytą runą, która nie pochodzi z tych stron. Ktoś miał kiedyś powód, żeby go tu złożyć, razem z tym nieszczęsnym Jędrzejem. Ktoś, kto wiedział, co robi.",
     ],
-    ch: [{ l: "Schować sygnet i pójść dalej", to: 39, fx: function (s, E) { E.dodaj("sygnet"); E.fakt("gen_domy"); } }] };
+    ch: [{ l: "Chowam sygnet i idę dalej", to: 39, fx: function (s, E) { E.dodaj("sygnet"); E.fakt("gen_domy"); } }] };
 
   SC[39] = { t: "Koniec Tomu I", chap: ["Tom I", "Szarówka"], end: "Koniec Tomu I",
     x: [
@@ -1568,7 +1572,7 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
     return out;
   }
   function sJournal() {
-    var out = '<h2>Dziennik</h2><div class="sec">Dziennik bestii</div>', any = false;
+    var out = '<h2>Dziennik</h2>' + huntPrep() + '<div class="sec">Dziennik bestii</div>', any = false;
     Object.keys(B.SPECIES).forEach(function (k) {
       var sp = B.SPECIES[k], fs = sp.facts.filter(function (f) { return S.dz[f.id]; });
       if (!fs.length) return; any = true;
@@ -1578,6 +1582,22 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
     if (gen.length) { any = true; out += '<h3 style="color:var(--gold)">Ogólne</h3>' + gen.map(function (f) { return '<p style="border-left:2px solid var(--line);padding-left:.7em">' + esc(f.t) + '</p>'; }).join(""); }
     if (!any) out += '<p>Jeszcze nic nie wiesz.</p>';
     out += '<div class="sec">Notatki</div>' + (S.log.length ? S.log.slice().reverse().map(function (l) { return '<p><span class="parts">dzień ' + l.day + '</span> ' + esc(l.t) + '</p>'; }).join("") : '<p>Brak.</p>');
+    return out;
+  }
+  function huntPrep() {
+    var k = S.flags && S.flags.rozp, sp = k && B.SPECIES[k];
+    if (!sp) return '<div class="sec">Przygotowanie do polowania</div><p>Jeszcze nie wiesz, na co polujesz. Rozmawiaj z ludźmi, oglądaj ślady, a potem zbierz myśli.</p>';
+    var known = sp.facts.filter(function (f) { return S.dz[f.id]; }).length, pr = sp.prep || {}, killKnown = pr.kill && S.dz[pr.kill];
+    function row(ok, txt) { return '<tr><td>' + esc(txt) + '</td><td class="r ' + (ok ? "ok" : "no") + '">' + (ok ? "jest" : "brak") + '</td></tr>'; }
+    function meets(alt) { return Object.keys(alt).every(function (id) { return EN.qty(S, id) >= alt[id]; }); }
+    var out = '<div class="sec">Przygotowanie do polowania</div><p>Cel: <b>' + esc(sp.n) + '</b>. Wiesz o nim ' + known + ' z ' + sp.facts.length + ' rzeczy, które da się ustalić.</p><table>' +
+      '<tr><td>Wiesz, jak go zabić</td><td class="r ' + (killKnown ? "ok" : "no") + '">' + (killKnown ? "tak" : "nie") + '</td></tr></table>';
+    if (killKnown && pr.gear) out += '<div class="parts" style="margin-top:8px">Sprzęt do rytuału:</div><table>' + pr.gear.map(function (g) { return row(g.any.some(meets), g.t); }).join("") + '</table>';
+    else out += '<p class="parts">Nie wiesz jeszcze, czego będziesz potrzebować po walce.</p>';
+    out += '<div class="parts" style="margin-top:8px">Ogólna gotowość:</div><table>' +
+      row(S.pistol >= 2, "Pistolety załadowane (" + S.pistol + "/2)") + row(EN.qty(S, "kolek") >= 2, "Zapasowe kołki") +
+      row(!!S.eq.pancerz, "Pancerz na sobie") + row(EN.qty(S, "bandaz") >= 1, "Bandaże") + row(EN.qty(S, "racja") >= 1, "Jedzenie") +
+      row(EN.cieplo(S) >= 6, "Ciepłe ubranie (ciepło " + EN.cieplo(S) + ")") + '</table>';
     return out;
   }
   function sMenu() {

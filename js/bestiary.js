@@ -16,6 +16,10 @@
         { id: "draugr_rytual", t: "Pokonać go można tylko w pojedynku, jeden na jednego. Potem trzeba ściąć mu głowę, spalić ciało do zimnych popiołów i pogrzebać je daleko (albo wrzucić do wody). Do stosu potrzeba krzesiwa i oleju albo kilku pochodni, a bez tego zostaje chrust i długa, zimna noc. Pomoc innych wszystko psuje." },
         { id: "draugr_rodzaj", t: "Zwykle zostaje nim człowiek, który odszedł w złym stanie: samobójca, zmarły bez pochówku, nieprzebłagany za życia." }
       ],
+      prep: { kill: "draugr_rytual", gear: [
+        { t: "Krzesiwo", any: [{ krzesiwo: 1 }] },
+        { t: "Olej lub dwie pochodnie do stosu", any: [{ olej: 1 }, { pochodnia: 2 }] },
+        { t: "Łopata do pochówku", any: [{ lopata: 1 }] }] },
       foe: { n: "Draugr", zyw: 34, atk: 8, obr: 4, dice: [3, 6, 0], wyp: 2, ini: 6, nieumarly: true, zimny: true }
     },
     brukolak: {

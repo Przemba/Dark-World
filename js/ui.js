@@ -248,7 +248,7 @@
     return out;
   }
   function sJournal() {
-    var out = '<h2>Dziennik</h2><div class="sec">Dziennik bestii</div>', any = false;
+    var out = '<h2>Dziennik</h2>' + huntPrep() + '<div class="sec">Dziennik bestii</div>', any = false;
     Object.keys(B.SPECIES).forEach(function (k) {
       var sp = B.SPECIES[k], fs = sp.facts.filter(function (f) { return S.dz[f.id]; });
       if (!fs.length) return; any = true;
@@ -258,6 +258,22 @@
     if (gen.length) { any = true; out += '<h3 style="color:var(--gold)">Ogólne</h3>' + gen.map(function (f) { return '<p style="border-left:2px solid var(--line);padding-left:.7em">' + esc(f.t) + '</p>'; }).join(""); }
     if (!any) out += '<p>Jeszcze nic nie wiesz.</p>';
     out += '<div class="sec">Notatki</div>' + (S.log.length ? S.log.slice().reverse().map(function (l) { return '<p><span class="parts">dzień ' + l.day + '</span> ' + esc(l.t) + '</p>'; }).join("") : '<p>Brak.</p>');
+    return out;
+  }
+  function huntPrep() {
+    var k = S.flags && S.flags.rozp, sp = k && B.SPECIES[k];
+    if (!sp) return '<div class="sec">Przygotowanie do polowania</div><p>Jeszcze nie wiesz, na co polujesz. Rozmawiaj z ludźmi, oglądaj ślady, a potem zbierz myśli.</p>';
+    var known = sp.facts.filter(function (f) { return S.dz[f.id]; }).length, pr = sp.prep || {}, killKnown = pr.kill && S.dz[pr.kill];
+    function row(ok, txt) { return '<tr><td>' + esc(txt) + '</td><td class="r ' + (ok ? "ok" : "no") + '">' + (ok ? "jest" : "brak") + '</td></tr>'; }
+    function meets(alt) { return Object.keys(alt).every(function (id) { return EN.qty(S, id) >= alt[id]; }); }
+    var out = '<div class="sec">Przygotowanie do polowania</div><p>Cel: <b>' + esc(sp.n) + '</b>. Wiesz o nim ' + known + ' z ' + sp.facts.length + ' rzeczy, które da się ustalić.</p><table>' +
+      '<tr><td>Wiesz, jak go zabić</td><td class="r ' + (killKnown ? "ok" : "no") + '">' + (killKnown ? "tak" : "nie") + '</td></tr></table>';
+    if (killKnown && pr.gear) out += '<div class="parts" style="margin-top:8px">Sprzęt do rytuału:</div><table>' + pr.gear.map(function (g) { return row(g.any.some(meets), g.t); }).join("") + '</table>';
+    else out += '<p class="parts">Nie wiesz jeszcze, czego będziesz potrzebować po walce.</p>';
+    out += '<div class="parts" style="margin-top:8px">Ogólna gotowość:</div><table>' +
+      row(S.pistol >= 2, "Pistolety załadowane (" + S.pistol + "/2)") + row(EN.qty(S, "kolek") >= 2, "Zapasowe kołki") +
+      row(!!S.eq.pancerz, "Pancerz na sobie") + row(EN.qty(S, "bandaz") >= 1, "Bandaże") + row(EN.qty(S, "racja") >= 1, "Jedzenie") +
+      row(EN.cieplo(S) >= 6, "Ciepłe ubranie (ciepło " + EN.cieplo(S) + ")") + '</table>';
     return out;
   }
   function sMenu() {
