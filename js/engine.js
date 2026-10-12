@@ -256,6 +256,7 @@
     if (spec.nightFull && isFull(s.day)) f.foes.forEach(function (x) { x.atk += 1; x.zyw += 4; x.max += 4; });
     return f;
   }
+  function pick1(a) { return a[Math.floor(Math.random() * a.length)]; }
   function liveFoes(f) { return f.foes.filter(function (e) { return !e.down; }); }
   var LOCS = [null, "głowa", "tułów", "tułów", "tułów", "tułów", "tułów", "ręka", "noga", "noga", "noga"];
   function locMul(loc, foe) { return loc === "głowa" ? (foe && foe.nieumarly ? 1 : 1.5) : (loc === "tułów" ? 1 : 0.75); }
@@ -295,7 +296,7 @@
         }
         var r = k10x();
         var atkSk = ranged ? "Strzelanie" : "Walka";
-        var tot = r.total + attrVal(s.pc, ranged ? "ZR" : "WALKA") + (s.pc.sk[atkSk] || 0) + (ranged ? 0 : w.mod) + f.aim + kary(s).total + (surprise ? 2 : 0);
+        var tot = r.total + attrVal(s.pc, ranged ? "ZR" : "WALKA") + (s.pc.sk[atkSk] || 0) + (ranged ? 0 : w.mod) + f.aim + (s.flags.atak_bonus || 0) + kary(s).total + (surprise ? 2 : 0);
         var st = 6 + tgt.obr;
         if (r.fumble) { L.push("Podwójna jedynka: tracisz równowagę, a " + tgt.n + " to widzi."); f.defense = false; f.aim = 0; continue; }
         var hit = r.crit || tot >= st;
@@ -316,18 +317,18 @@
       } else {
         var e = o.who; if (e.down) continue;
         var er = k10x();
-        var def = 6 + attrVal(s.pc, "OBRONA") + Math.floor((s.pc.sk["Unik"] || 0) / 2) + (f.defense ? 3 : 0) + (spec.cover || 0);
+        var def = 6 + attrVal(s.pc, "OBRONA") + Math.floor((s.pc.sk["Unik"] || 0) / 2) + (f.defense ? 3 : 0) + (spec.cover || 0) + (s.flags.obrona_bonus || 0);
         var et = er.total + e.atk;
-        if (er.fumble || !(er.crit || et >= def)) { L.push(e.n + " atakuje: " + et + " przeciw " + def + ". Chybia."); continue; }
+        if (er.fumble || !(er.crit || et >= def)) { L.push((e.fl ? pick1(e.fl.miss) + " (" + et + " przeciw " + def + ")" : e.n + " atakuje: " + et + " przeciw " + def + ". Chybia.")); continue; }
         var eloc = LOCS[d(10)];
         var eraw = dice(e.dice[0], e.dice[1], e.dice[2]).total;
         var edm = Math.round(eraw * locMul(eloc, null)) - armorWyp(s, eloc);
         if (er.crit) edm = Math.round(edm * 1.5);
-        if (edm <= 0) { L.push(e.n + " trafia w " + eloc + ": " + eraw + ", ale pancerz zatrzymuje cios."); continue; }
+        if (edm <= 0) { L.push(e.fl ? pick1(e.fl.armor) : e.n + " trafia w " + eloc + ": " + eraw + ", ale pancerz zatrzymuje cios."); continue; }
         s.zyw -= edm;
         var extra = "";
         if (e.zimny) { s.zimno = Math.min(6, s.zimno + 1); extra = " Zimno przenika Cię do kości (Zimno " + s.zimno + ")."; }
-        L.push(e.n + " trafia w " + eloc + ": " + edm + " obrażeń. Zostaje Ci " + Math.max(0, s.zyw) + "/" + s.zywMax + "." + extra);
+        L.push((e.fl ? pick1(e.fl.hit) + " (" + edm + " obrażeń, " + eloc + "). Zostaje Ci " : e.n + " trafia w " + eloc + ": " + edm + " obrażeń. Zostaje Ci ") + Math.max(0, s.zyw) + "/" + s.zywMax + "." + extra);
         /* test przytomności po ciężkim ciosie */
         if (edm >= 8 && s.zyw > 0) { var sr = d(10); if (sr > s.pc.at.WT) { f.lostAction = true; L.push("Test przytomności: " + sr + " przeciw " + s.pc.at.WT + ". Tracisz następną akcję."); } }
         if (s.zyw <= 0) {

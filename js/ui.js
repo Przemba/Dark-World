@@ -271,6 +271,7 @@
     if (killKnown && pr.gear) out += '<div class="parts" style="margin-top:8px">Sprzęt do rytuału:</div><table>' + pr.gear.map(function (g) { return row(g.any.some(meets), g.t); }).join("") + '</table>';
     else out += '<p class="parts">Nie wiesz jeszcze, czego będziesz potrzebować po walce.</p>';
     out += '<div class="parts" style="margin-top:8px">Ogólna gotowość:</div><table>' +
+      (S.dz.draugr_styl ? row(true, "Znasz jego styl walki") : "") + (S.flags.pole_wybrane ? row(true, "Wybrane miejsce pojedynku") : "") + (S.flags.tylna ? row(true, "Znasz tylne wejście do kurhanu") : "") +
       row(S.pistol >= 2, "Pistolety załadowane (" + S.pistol + "/2)") + row(EN.qty(S, "kolek") >= 2, "Zapasowe kołki") +
       row(!!S.eq.pancerz, "Pancerz na sobie") + row(EN.qty(S, "bandaz") >= 1, "Bandaże") + row(EN.qty(S, "racja") >= 1, "Jedzenie") +
       row(EN.cieplo(S) >= 6, "Ciepłe ubranie (ciepło " + EN.cieplo(S) + ")") + '</table>';

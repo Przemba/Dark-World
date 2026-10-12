@@ -14,13 +14,26 @@
         { id: "draugr_zazdr", t: "Z zazdrości o żywych zaszczuwa bydło na śmierć. Najpierw zwierzęta, potem ludzie." },
         { id: "draugr_sila",  t: "Czarny, ogromny, zimny w dotyku. Jego ciało długo nie gnije, a siła przewyższa człowieka." },
         { id: "draugr_rytual", t: "Pokonać go można tylko w pojedynku, jeden na jednego. Potem trzeba ściąć mu głowę, spalić ciało do zimnych popiołów i pogrzebać je daleko (albo wrzucić do wody). Do stosu potrzeba krzesiwa i oleju albo kilku pochodni, a bez tego zostaje chrust i długa, zimna noc. Pomoc innych wszystko psuje." },
+        { id: "draugr_styl", t: "Bije ciężko, z góry, bez gardy. Zmęczenie go nie dotyczy, ale na ruch w bok reaguje wolniej niż na pchnięcie prosto." },
+        { id: "draugr_runy", t: "Głazy kurhanu noszą runy starsze niż wioska. Wynika z nich, że to, co leży w środku, ma swoje prawo: pojedynek, nie tłum." },
         { id: "draugr_rodzaj", t: "Zwykle zostaje nim człowiek, który odszedł w złym stanie: samobójca, zmarły bez pochówku, nieprzebłagany za życia." }
       ],
       prep: { kill: "draugr_rytual", gear: [
         { t: "Krzesiwo", any: [{ krzesiwo: 1 }] },
         { t: "Olej lub dwie pochodnie do stosu", any: [{ olej: 1 }, { pochodnia: 2 }] },
         { t: "Łopata do pochówku", any: [{ lopata: 1 }] }] },
-      foe: { n: "Draugr", zyw: 34, atk: 8, obr: 4, dice: [3, 6, 0], wyp: 2, ini: 6, nieumarly: true, zimny: true }
+      foe: { n: "Draugr", fl: {
+          miss: ["Długa, czarna ręka przecina powietrze tam, gdzie przed chwilą stała twoja głowa.",
+            "Draugr rzuca się naprzód bez krzyku, a ty uskakujesz o włos. Czujesz zimno jego oddechu na szyi.",
+            "Uderzenie z góry rozbija kamień u twoich stóp. Odłamki sypią się na buty.",
+            "Palce jak korzenie zamykają się w próżni, tuż obok twojego ramienia."],
+          hit: ["Pięść jak młot uderza cię w ciało, a świat na chwilę robi się biały od bólu.",
+            "Zimne palce zaciskają się na twoim ramieniu i szarpią tak, że coś w środku trzeszczy.",
+            "Cios z góry, bez zamachu i bez złości. Zimno rozchodzi się od uderzenia do kości.",
+            "Draugr łapie cię i odrzuca jak szmatę. Uderzasz o ziemię z wyciśniętym powietrzem."],
+          armor: ["Cios spada na pancerz i zatrzymuje się. Czujesz tylko tępe uderzenie i drżenie w kościach.",
+            "Zimne palce ślizgają się po twojej osłonie, nie znajdując chwytu."] },
+        zyw: 34, atk: 8, obr: 4, dice: [3, 6, 0], wyp: 2, ini: 6, nieumarly: true, zimny: true }
     },
     brukolak: {
       n: "Brukołak", tier: "niższy", reg: "niziny",
@@ -71,6 +84,8 @@
 
   /* wspólne fakty ogólne (do Dziennika) */
   var GENERAL = [
+    { id: "gen_obcy",    t: "Zimą ktoś obcy, w czarnym płaszczu, zatrzymał się u Jędrzeja Wrony. Wkrótce potem Jędrzej się powiesił. We wsi nikt o tym nie chce mówić." },
+    { id: "gen_hanna",   t: "Hanna, żona Jędrzeja, leży na wiejskim cmentarzu, w ziemi poświęconej. On leży w kopcu, daleko od niej. Ta nierówność jest raną, która nie chce się zagoić." },
     { id: "gen_domy",    t: "Wampiry skupiają się w Domach. Głowy Domów zasiadają w Radzie, a Rada tworzy kastę. Znane kasty: Malkavian, Nosferatu, Giovanni." },
     { id: "gen_slonce",  t: "Słońce nie zabija wszystkich. Wampiry wyższe znoszą światło, niższe zwykle nie." },
     { id: "gen_kolek",   t: "Kołek osikowy w serce działa na wiele z nich. Ale trzeba wiedzieć, gdzie wampir śpi w dzień, bo nocą jest za silny." },
