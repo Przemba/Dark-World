@@ -13,7 +13,7 @@
         { id: "draugr_dom",   t: "Za dnia spoczywa w swoim grobie lub kopcu. Nocą z niego wychodzi." },
         { id: "draugr_zazdr", t: "Z zazdrości o żywych zaszczuwa bydło na śmierć. Najpierw zwierzęta, potem ludzie." },
         { id: "draugr_sila",  t: "Czarny, ogromny, zimny w dotyku. Jego ciało długo nie gnije, a siła przewyższa człowieka." },
-        { id: "draugr_rytual", t: "Pokonać go można tylko w pojedynku, jeden na jednego. Potem trzeba ściąć mu głowę, spalić ciało do zimnych popiołów i pogrzebać je daleko (albo wrzucić do wody). Pomoc innych wszystko psuje." },
+        { id: "draugr_rytual", t: "Pokonać go można tylko w pojedynku, jeden na jednego. Potem trzeba ściąć mu głowę, spalić ciało do zimnych popiołów i pogrzebać je daleko (albo wrzucić do wody). Do stosu potrzeba krzesiwa i oleju albo kilku pochodni, a bez tego zostaje chrust i długa, zimna noc. Pomoc innych wszystko psuje." },
         { id: "draugr_rodzaj", t: "Zwykle zostaje nim człowiek, który odszedł w złym stanie: samobójca, zmarły bez pochówku, nieprzebłagany za życia." }
       ],
       foe: { n: "Draugr", zyw: 34, atk: 8, obr: 4, dice: [3, 6, 0], wyp: 2, ini: 6, nieumarly: true, zimny: true }

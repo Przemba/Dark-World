@@ -173,7 +173,7 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
         { id: "draugr_dom",   t: "Za dnia spoczywa w swoim grobie lub kopcu. Nocą z niego wychodzi." },
         { id: "draugr_zazdr", t: "Z zazdrości o żywych zaszczuwa bydło na śmierć. Najpierw zwierzęta, potem ludzie." },
         { id: "draugr_sila",  t: "Czarny, ogromny, zimny w dotyku. Jego ciało długo nie gnije, a siła przewyższa człowieka." },
-        { id: "draugr_rytual", t: "Pokonać go można tylko w pojedynku, jeden na jednego. Potem trzeba ściąć mu głowę, spalić ciało do zimnych popiołów i pogrzebać je daleko (albo wrzucić do wody). Pomoc innych wszystko psuje." },
+        { id: "draugr_rytual", t: "Pokonać go można tylko w pojedynku, jeden na jednego. Potem trzeba ściąć mu głowę, spalić ciało do zimnych popiołów i pogrzebać je daleko (albo wrzucić do wody). Do stosu potrzeba krzesiwa i oleju albo kilku pochodni, a bez tego zostaje chrust i długa, zimna noc. Pomoc innych wszystko psuje." },
         { id: "draugr_rodzaj", t: "Zwykle zostaje nim człowiek, który odszedł w złym stanie: samobójca, zmarły bez pochówku, nieprzebłagany za życia." }
       ],
       foe: { n: "Draugr", zyw: 34, atk: 8, obr: 4, dice: [3, 6, 0], wyp: 2, ini: 6, nieumarly: true, zimny: true }
@@ -1215,6 +1215,9 @@ textarea{min-height:90px;font-size:.8em;word-break:break-all}
       { l: "Spalić ciało i głowę", to: 28, vis: function (s) { return !!s.flags.r_glowa && !s.flags.r_ogien; },
         c: function (s) { return EN.has(s, "krzesiwo") && (EN.qty(s, "olej") >= 1 || EN.qty(s, "pochodnia") >= 2); }, why: "Potrzebujesz krzesiwa i oleju (albo dwóch pochodni)",
         fx: function (s, E) { if (EN.qty(s, "olej") >= 1) E.zabierz("olej", 1); else E.zabierz("pochodnia", 2); s.flags.r_ogien = true; E.czas(1); E.chip("Zimne popioły", "note"); } },
+      { l: "Ułożyć stos z chrustu i drewna z okolicy (krzesiwo, trwa dwie pory, zimno)", to: 28, vis: function (s) { return !!s.flags.r_glowa && !s.flags.r_ogien && !(EN.has(s, "krzesiwo") && (EN.qty(s, "olej") >= 1 || EN.qty(s, "pochodnia") >= 2)); },
+        c: function (s) { return EN.has(s, "krzesiwo"); }, why: "Bez krzesiwa nie rozpalisz nawet chrustu",
+        fx: function (s, E) { s.flags.r_ogien = true; E.czas(2); E.zimno(1); E.chip("Zimne popioły (po długiej nocy przy stosie)", "note"); } },
       { l: "Przypomnieć sobie, co jeszcze trzeba zrobić (Wiedza o bestiach, ST 14)", vis: function (s) { return !s.dz.draugr_rytual; },
         test: { sk: "Wiedza o bestiach", st: 14, label: "Intuicja Łowcy", ok: function (s, E) { E.fakt("draugr_rytual"); } }, to: 28 },
       { l: "Zanieść popioły daleko od wsi i pogrzebać je w ziemi", to: 29, vis: function (s) { return !!s.flags.r_ogien && !s.flags.r_pochowek; }, c: D("draugr_rytual"), why: "Nie wiesz, że to wymagane",
