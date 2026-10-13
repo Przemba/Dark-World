@@ -3,6 +3,8 @@
   "use strict";
   var EN = DW.engine, IT = DW.items, B = DW.bestiary;
   var KEY = "dw_save_v1", app = document.getElementById("app");
+  var wide = window.matchMedia ? window.matchMedia("(min-width: 1000px)") : { matches: false };
+  var sideTab = "karta";
   var S = null, sheet = null, tab = null, testUi = null, create = null, toastT = null;
 
   function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
@@ -85,7 +87,7 @@
     if (!S) return titleScreen();
     var y0 = window.scrollY;
     save();
-    var s = S, p = SCp(), html = hud(), bl = EN.blocks(s);
+    var s = S, p = SCp(), html = hud(), bl = EN.blocks(s), num = 0;
     html += '<div class="text">' + bl.map(function (b) { return '<p class="' + (b.k === "intro" ? "intro" : b.k === "d" ? "d" : "") + '">' + esc(b.k === "d" ? b.t.replace(/^- /, "") : b.t) + '</p>'; }).join("") + '</div>';
     if (s.chips && s.chips.length) html += '<div class="chips">' + s.chips.map(function (c) { return '<span class="chip ' + c.cls + '">' + esc(c.t) + '</span>'; }).join("") + '</div>';
     if (s.pending) {
@@ -97,13 +99,19 @@
     } else {
       if (p.shop) html += shopPanel(p.shop);
       html += '<div class="choices">' + EN.choices(s).map(function (c) {
-        return '<button class="ch ' + (c.ok ? "" : "off") + '" data-i="' + c.i + '">' + esc(c.l) + (!c.ok && c.why ? '<small>' + esc(c.why) + '</small>' : '') + '</button>';
+        num++;
+        return '<button class="ch ' + (c.ok ? "" : "off") + '" data-i="' + c.i + '">' + (wide.matches ? '<span class="kn">' + num + '</span>' : '') + esc(c.l) + (!c.ok && c.why ? '<small>' + esc(c.why) + '</small>' : '') + '</button>';
       }).join("") + '</div>';
     }
-    html += tabsBar();
-    h(html);
-    bindMain();
-    if (sheet) openSheet(sheet);
+    if (wide.matches) {
+      html = '<div class="dsk"><div class="mainc">' + html + '</div><aside class="side">' + sideHtml() + '</aside></div>';
+      h(html); bindMain(); bindSide();
+    } else {
+      html += tabsBar();
+      h(html);
+      bindMain();
+      if (sheet) openSheet(sheet);
+    }
     window.scrollTo(0, keep ? y0 : 0);
   }
   function bindMain() {
@@ -111,6 +119,16 @@
     on("#nx", function () { EN.next(S); render(); });
     on("[data-tab]", function (el) { openSheet(el.dataset.tab); });
     bindTest(); bindFight(); bindShop();
+  }
+  function sideBody(name) { return name === "karta" ? sCard() : name === "plecak" ? sBag() : name === "dziennik" ? sJournal() : sMenu(); }
+  function sideHtml() {
+    return '<div class="stabs">' + [["karta", "Postać"], ["plecak", "Plecak"], ["dziennik", "Dziennik"], ["menu", "Menu"]].map(function (x) {
+      return '<button data-stab="' + x[0] + '" class="' + (sideTab === x[0] ? "on" : "") + '">' + x[1] + '</button>'; }).join("") + '</div><div class="sbody">' + sideBody(sideTab) + '</div>';
+  }
+  function bindSide() {
+    var a = $(".side"); if (!a) return;
+    on("[data-stab]", function (el) { sideTab = el.dataset.stab; var y = a.scrollTop; a.innerHTML = sideHtml(); bindSide(); a.scrollTop = y; });
+    bindSheet(a);
   }
   function tabsBar() {
     return '<div class="tabs">' + [["karta", "Postać"], ["plecak", "Plecak"], ["dziennik", "Dziennik"], ["menu", "Menu"]].map(function (t) {
@@ -220,7 +238,8 @@
     bindSheet(d);
   }
   function closeSheet() { sheet = null; var o = $(".sheet"); if (o) o.remove(); var tb = document.querySelectorAll(".tabs button"); for (var i = 0; i < tb.length; i++) tb[i].classList.remove("on"); }
-  function refreshSheet() { var y = $(".sheet") ? $(".sheet").scrollTop : 0; var n = sheet; var o = $(".sheet"); if (o) o.remove(); openSheet(n); var s2 = $(".sheet"); if (s2) s2.scrollTop = y; if (!S.pending && !S.end) { /* odśwież HUD pod spodem */ var top = $(".top"); if (top) top.outerHTML = hud(); } save(); }
+  function refreshSheet() {
+    if (wide.matches) { var a = $(".side"), y0 = a ? a.scrollTop : 0; if (a) { a.innerHTML = sideHtml(); bindSide(); a.scrollTop = y0; } var top0 = $(".top"); if (top0) top0.outerHTML = hud(); save(); return; } var y = $(".sheet") ? $(".sheet").scrollTop : 0; var n = sheet; var o = $(".sheet"); if (o) o.remove(); openSheet(n); var s2 = $(".sheet"); if (s2) s2.scrollTop = y; if (!S.pending && !S.end) { /* odśwież HUD pod spodem */ var top = $(".top"); if (top) top.outerHTML = hud(); } save(); }
 
   function sCard() {
     var pc = S.pc, out = '<h2>' + esc(pc.name) + '</h2><div class="parts">' + esc(EN.KLASY[pc.klasa].n) + ' · ' + (pc.plec === "k" ? "kobieta" : "mężczyzna") + '</div><div class="sec">Cechy</div><table>' +
@@ -296,6 +315,20 @@
     q("#m_title", function () { sheet = null; titleScreen(); });
     q("#m_reset", function () { if (confirm("Usunąć zapis?")) { try { localStorage.removeItem(KEY); } catch (e) {} S = null; sheet = null; titleScreen(); } });
   }
+
+  /* ---------- skróty klawiszowe (desktop) ---------- */
+  document.addEventListener("keydown", function (e) {
+    if (!S || e.ctrlKey || e.metaKey || e.altKey) return;
+    var tag = (e.target && e.target.tagName) || ""; if (tag === "INPUT" || tag === "TEXTAREA") return;
+    if (e.key >= "1" && e.key <= "9") { var b = document.querySelectorAll(".choices .ch[data-i]")[+e.key - 1]; if (b) b.click(); return; }
+    if (e.key === "Enter" || e.key === " ") {
+      var go = $("#roll") || $("#tdone") || $("#nx") || $("#fdone"); if (go) { e.preventDefault(); go.click(); return; }
+    }
+    if (e.key === "a" || e.key === "A") { var at = $("[data-a=atak]"); if (at) at.click(); }
+    if (e.key === "s" || e.key === "S") { var st = $("[data-a=pistolet]:not([disabled])"); if (st) st.click(); }
+    if (e.key === "u" || e.key === "U") { var un = $("[data-a=unik]"); if (un) un.click(); }
+  });
+  if (wide.addEventListener) wide.addEventListener("change", function () { if (S) { sheet = null; var o = $(".sheet"); if (o) o.remove(); render(true); } });
 
   /* ---------- start ---------- */
   var fs = +lsGet("dw_fs"); if (fs) document.documentElement.style.setProperty("--fs", fs + "px");

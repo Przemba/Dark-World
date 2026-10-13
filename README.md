@@ -4,6 +4,8 @@ Gra paragrafowa (gamebook z systemem pod spodem) o łowcy wampirów. Działa w p
 
 **Zagraj:** https://przemba.github.io/Dark-World/
 
+Na komputerze (okno szersze niż 1000 px) gra pokazuje stały panel boczny (Postać, Plecak, Dziennik, Menu) i obsługuje klawiaturę: 1-9 wybór opcji, Enter/Spacja dalej lub rzut, A atak, S strzał, U unik.
+
 ## Struktura
 - `js/engine.js` – silnik zasad (testy k10, Szczęście, walka rundowa, zegary, Zimno/Głód, udźwig, kod przeniesienia). Bez DOM, działa też w Node.
 - `js/items.js`, `js/bestiary.js` – przedmioty i bestiariusz wspólne dla wszystkich tomów.
